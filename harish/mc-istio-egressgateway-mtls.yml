@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: mc-istio-egressgateway-mtls
+  namespace: istio-system
+spec:
+  selector:
+    istio: egresggateway
+  servers:
+  - hosts:
+    - igloo.mc.noncde.demo.pe
+    port:
+      name: https
+      number: 443
+      protocol: HTTPS
+    tls:
+      mode: ISTIO_MUTUAL

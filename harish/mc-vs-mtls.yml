@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: mc-vs-mtls
+  namespace: istio-system
+spec:
+  gateways:
+  - mc-istio-egressgateway-mtls
+  - mesh
+  hosts:
+  - igloo.mc.noncde.demo.pe
+  http:
+  - match:
+    - gateways:
+      - mesh
+      port: 80
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        port:
+          number: 443
+        subset: nginx
+      weight: 100
+  - match:
+    - gateways:
+      - mc-istio-egressgateway-mtls
+      port: 443
+    route:
+    - destination:
+        host: igloo.mc.noncde.demo.pe
+        port:
+          number: 443
+      weight: 100

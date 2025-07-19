@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: mc-destinationrule-egress-gateway-tcp-tls-leg2
+  namespace: istio-system
+spec:
+  host: mngs.mtf.connexswitch.client.f5
+  trafficPolicy:
+    portLevelSettings:
+    - port:
+        number: 443
+      tls:
+        credentialName: mc-updated-client-cert
+        mode: MUTUAL
+        sni: mngs.mtf.connexswitch.client.f5

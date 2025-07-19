@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: mc-destinationrule-outbound-mtls
+  namespace: istio-system
+spec:
+  host: igloo.mc.noncde.demo.pe
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    portLevelSettings:
+    - connectionPool:
+        http:
+          useClientProtocol: true
+      port:
+        number: 443
+      tls:
+        credentialName: demo-noncde-mc-cert-client
+        mode: MUTUAL
+        sni: igloo.mc.noncde.demo.pe

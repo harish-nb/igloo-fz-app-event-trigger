@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: mc-vs-tcp-tls
+  namespace: istio-system
+spec:
+  gateways:
+  - mesh
+  - mc-istio-egressgateway-tcp-tls
+  hosts:
+  - mngs.mtf.connexswitch.client.f5
+  tcp:
+  - match:
+    - gateways:
+      - mesh
+      port: 8082
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        port:
+          number: 443
+        subset: tcp-tls
+  - match:
+    - gateways:
+      - mc-istio-egressgateway-tcp-tls
+      port: 443
+    route:
+    - destination:
+        host: mngs.mtf.connexswitch.client.f5
+        port:
+          number: 443

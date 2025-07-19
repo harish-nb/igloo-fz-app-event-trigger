@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: igloo-cde-file-upload-simulator-mc-vsg
+  namespace: istio-system
+spec:
+  gateways:
+  - igloo-gateway-mc-na
+  hosts:
+  - igloo.mc.cde.demo.pe
+  http:
+  - match:
+    - uri:
+        prefix: /simulator
+    route:
+    - destination:
+        host: file-upload-simulator.simulator.svc.cluster.local
+        port:
+          number: 8081

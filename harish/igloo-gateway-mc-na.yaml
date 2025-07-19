@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: igloo-gateway-mc-na
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - igloo.mc.cde.demo.pe
+    port:
+      name: grpc
+      number: 8086
+      protocol: HTTP2

@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1
+kind: ServiceEntry
+metadata:
+  name: mc-serviceentry-mc
+  namespace: istio-system
+spec:
+  hosts:
+  - mngs.mtf.connexswitch.client.f5
+  location: MESH_EXTERNAL
+  ports:
+  - name: tcp
+    number: 8082
+    protocol: TCP
+  - name: tls-443-tls
+    number: 443
+    protocol: TLS
+  resolution: DNS
